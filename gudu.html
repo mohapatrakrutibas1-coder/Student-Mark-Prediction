@@ -1,0 +1,616 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduAI - Animated Background</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #050816;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* BACKGROUND */
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -1;
+    background:
+        radial-gradient(circle at 20% 20%, #10234c, transparent 45%),
+        radial-gradient(circle at 80% 70%, #281044, transparent 45%),
+        #050816;
+}
+
+/* MOVING GRID */
+.grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    left: -50%;
+    top: -40%;
+    background-image:
+        linear-gradient(rgba(68, 133, 255, .25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(68, 133, 255, .25) 1px, transparent 1px);
+    background-size: 55px 55px;
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: center;
+    animation: gridAnimation 8s linear infinite;
+    mask-image: linear-gradient(transparent, black 25%, black 80%, transparent);
+}
+
+@keyframes gridAnimation {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 0 55px;
+    }
+}
+
+/* GLOWING ORBS */
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(85px);
+    opacity: .45;
+    animation: orbFloat 10s ease-in-out infinite alternate;
+}
+
+.orb1 {
+    width: 350px;
+    height: 350px;
+    background: #2563eb;
+    left: -100px;
+    top: 10%;
+}
+
+.orb2 {
+    width: 400px;
+    height: 400px;
+    background: #9333ea;
+    right: -120px;
+    top: 35%;
+    animation-delay: 2s;
+}
+
+.orb3 {
+    width: 250px;
+    height: 250px;
+    background: #06b6d4;
+    bottom: -100px;
+    left: 40%;
+    animation-delay: 4s;
+}
+
+@keyframes orbFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+    100% {
+        transform: translate(80px, -70px) scale(1.2);
+    }
+}
+
+/* LIGHT BEAMS */
+.light-beam {
+    position: absolute;
+    width: 3px;
+    height: 300px;
+    background: linear-gradient(
+        transparent,
+        #38bdf8,
+        #818cf8,
+        transparent
+    );
+    box-shadow: 0 0 20px #38bdf8;
+    opacity: .6;
+    animation: beamAnimation 7s linear infinite;
+}
+
+.beam1 {
+    left: 15%;
+    top: -300px;
+    transform: rotate(25deg);
+}
+
+.beam2 {
+    left: 75%;
+    top: -300px;
+    transform: rotate(-25deg);
+    animation-delay: 2s;
+}
+
+.beam3 {
+    left: 45%;
+    top: -300px;
+    transform: rotate(15deg);
+    animation-delay: 4s;
+}
+
+@keyframes beamAnimation {
+    0% {
+        top: -350px;
+        opacity: 0;
+    }
+    20% {
+        opacity: .7;
+    }
+    80% {
+        opacity: .5;
+    }
+    100% {
+        top: 120%;
+        opacity: 0;
+    }
+}
+
+/* PARTICLE CANVAS */
+#particles {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* PAGE CONTENT */
+.content {
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px 8%;
+    background: rgba(5, 8, 22, .45);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #60a5fa;
+}
+
+.logo span {
+    color: #c084fc;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+}
+
+nav a:hover {
+    color: #38bdf8;
+}
+
+.hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.badge {
+    padding: 12px 22px;
+    border: 1px solid #60a5fa;
+    border-radius: 30px;
+    color: #93c5fd;
+    background: rgba(37,99,235,.12);
+    box-shadow: 0 0 25px rgba(59,130,246,.2);
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(40px, 7vw, 75px);
+    max-width: 900px;
+    line-height: 1.15;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #38bdf8, #a78bfa, #ec4899);
+    background-size: 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: textGlow 4s linear infinite;
+}
+
+@keyframes textGlow {
+    to { background-position: 200%; }
+}
+
+.hero p {
+    max-width: 650px;
+    color: #b5c2d8;
+    line-height: 1.8;
+    margin: 25px 0;
+    font-size: 17px;
+}
+
+button {
+    padding: 15px 35px;
+    border: none;
+    border-radius: 30px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    background: linear-gradient(90deg, #2563eb, #9333ea);
+    cursor: pointer;
+    box-shadow: 0 0 25px rgba(59,130,246,.3);
+    transition: .3s;
+}
+
+button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 35px rgba(147,51,234,.6);
+}
+
+/* PREDICTION CARD */
+.predict {
+    max-width: 650px;
+    margin: 20px auto 80px;
+    padding: 35px;
+    background: rgba(15,23,42,.78);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(96,165,250,.3);
+    border-radius: 20px;
+    box-shadow: 0 15px 60px rgba(0,0,0,.3);
+}
+
+.predict h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0 20px;
+    border: 1px solid #334155;
+    border-radius: 9px;
+    background: #0b1224;
+    color: white;
+    outline: none;
+}
+
+input:focus {
+    border-color: #60a5fa;
+    box-shadow: 0 0 12px rgba(96,165,250,.3);
+}
+
+.predict button {
+    width: 100%;
+    border-radius: 9px;
+}
+
+#result {
+    display: none;
+    text-align: center;
+    margin-top: 25px;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(37,99,235,.15);
+    animation: showResult .5s ease;
+}
+
+@keyframes showResult {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#score {
+    font-size: 45px;
+    font-weight: bold;
+    color: #a78bfa;
+    margin: 12px;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #94a3b8;
+    border-top: 1px solid rgba(255,255,255,.1);
+}
+
+@media(max-width: 600px) {
+    nav {
+        padding: 20px;
+    }
+
+    nav a {
+        margin-left: 10px;
+        font-size: 13px;
+    }
+
+    .predict {
+        width: 90%;
+        padding: 25px 18px;
+    }
+}
+
+@media(prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ANIMATED BACKGROUND -->
+<div class="background">
+
+    <div class="grid"></div>
+
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="light-beam beam1"></div>
+    <div class="light-beam beam2"></div>
+    <div class="light-beam beam3"></div>
+
+    <canvas id="particles"></canvas>
+
+</div>
+
+<!-- WEBSITE CONTENT -->
+<div class="content">
+
+    <nav>
+        <div class="logo">Edu<span>AI.</span></div>
+
+        <div>
+            <a href="#home">Home</a>
+            <a href="#prediction">Predict</a>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+
+        <div class="badge">✦ SMART STUDENT PERFORMANCE SYSTEM</div>
+
+        <h1>
+            Student Marks
+            <span class="gradient-text">Prediction</span>
+            System
+        </h1>
+
+        <p>
+            Discover your estimated academic performance with an
+            interactive student marks prediction interface.
+            Explore the power of data and machine learning.
+        </p>
+
+        <button onclick="document.getElementById('prediction').scrollIntoView({behavior:'smooth'})">
+            Start Prediction →
+        </button>
+
+    </section>
+
+    <section class="predict" id="prediction">
+
+        <h2>🎓 Predict Your Marks</h2>
+
+        <form id="predictionForm">
+
+            <label>Student Name</label>
+            <input type="text" id="name" placeholder="Enter student name" required>
+
+            <label>Daily Study Hours</label>
+            <input type="number" id="hours" min="0" max="24" step="0.5"
+                   placeholder="Enter study hours" required>
+
+            <label>Attendance Percentage</label>
+            <input type="number" id="attendance" min="0" max="100"
+                   placeholder="Enter attendance" required>
+
+            <label>Previous Marks</label>
+            <input type="number" id="previous" min="0" max="100"
+                   placeholder="Enter previous marks" required>
+
+            <button type="submit">✨ Predict Marks</button>
+
+        </form>
+
+        <div id="result" aria-live="polite">
+            <h3>Prediction Result</h3>
+            <div id="score">0%</div>
+            <p id="message"></p>
+            <small>This is a demonstration estimate, not a trained ML prediction.</small>
+        </div>
+
+    </section>
+
+    <footer>
+        © 2026 EduAI | Student Marks Prediction Project
+    </footer>
+
+</div>
+
+<script>
+/* PARTICLE BACKGROUND ANIMATION */
+
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+let particles = [];
+let w, h;
+let animationId;
+
+function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    w = window.innerWidth;
+    h = window.innerHeight;
+
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+
+    canvas.style.width = w + "px";
+    canvas.style.height = h + "px";
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    createParticles();
+}
+
+function createParticles() {
+    particles = [];
+
+    let count = Math.min(90, Math.floor(w * h / 12000));
+
+    for (let i = 0; i < count; i++) {
+        particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            radius: Math.random() * 2 + .5,
+            dx: (Math.random() - .5) * .7,
+            dy: (Math.random() - .5) * .7
+        });
+    }
+}
+
+function drawParticles() {
+    ctx.clearRect(0, 0, w, h);
+
+    particles.forEach((p, i) => {
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > w) p.dx *= -1;
+        if (p.y < 0 || p.y > h) p.dy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#93c5fd";
+        ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+
+            let p2 = particles[j];
+
+            let dx = p.x - p2.x;
+            let dy = p.y - p2.y;
+
+            let distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 120) {
+                ctx.beginPath();
+                ctx.moveTo(p.x, p.y);
+                ctx.lineTo(p2.x, p2.y);
+
+                ctx.strokeStyle =
+                    `rgba(96,165,250,${.25 * (1 - distance / 120)})`;
+
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+    });
+
+    animationId = requestAnimationFrame(drawParticles);
+}
+
+resize();
+
+const motionPreference = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+);
+
+if (!motionPreference.matches) {
+    drawParticles();
+}
+
+window.addEventListener("resize", resize);
+
+motionPreference.addEventListener("change", event => {
+    if (event.matches) {
+        cancelAnimationFrame(animationId);
+        ctx.clearRect(0, 0, w, h);
+    } else {
+        drawParticles();
+    }
+});
+
+/* STUDENT MARKS DEMONSTRATION */
+
+document.getElementById("predictionForm").addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value.trim();
+    const hours = Number(document.getElementById("hours").value);
+    const attendance = Number(document.getElementById("attendance").value);
+    const previous = Number(document.getElementById("previous").value);
+
+    if (!name || !Number.isFinite(hours) ||
+        !Number.isFinite(attendance) || !Number.isFinite(previous) ||
+        hours < 0 || hours > 24 ||
+        attendance < 0 || attendance > 100 ||
+        previous < 0 || previous > 100) {
+        alert("Please enter valid values.");
+        return;
+    }
+
+    // Example formula only, not a trained ML model.
+    let prediction =
+        (hours / 24) * 20 +
+        (attendance / 100) * 30 +
+        (previous / 100) * 50;
+
+    prediction = Math.round(Math.max(0, Math.min(100, prediction)));
+
+    document.getElementById("score").textContent = prediction + "%";
+
+    let message;
+
+    if (prediction >= 80) {
+        message = "Strong estimated performance. Keep learning!";
+    } else if (prediction >= 60) {
+        message = "Good estimated performance. Keep improving!";
+    } else if (prediction >= 40) {
+        message = "There is room to improve your learning habits.";
+    } else {
+        message = "Use this estimate as a starting point for improvement.";
+    }
+
+    document.getElementById("message").textContent =
+        "Hello " + name + "! " + message;
+
+    document.getElementById("result").style.display = "block";
+
+    document.getElementById("result").scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+    });
+});
+</script>
+
+</body>
+</html>
